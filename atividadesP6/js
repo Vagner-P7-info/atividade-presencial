@@ -1,0 +1,16 @@
+function converterMoeda() {
+    const valorEmReal = parseFloat(document.getElementById("valor").value);
+
+    // Fazer uma requisição para obter a taxa de conversão
+    fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL')
+        .then(response => response.json())
+        .then(data => {
+            const taxaDolar = data['USDBRL']['ask'];
+            const valorConvertido = valorEmReal / taxaDolar;
+
+            document.getElementById("resultado").innerHTML = `Valor em Dolar: $${valorConvertido.toFixed(2)}`;
+        })
+        .catch(error => {
+            console.error("Erro na requisição:", error);
+        });
+}
